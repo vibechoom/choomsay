@@ -1,0 +1,16 @@
+[package]
+name = "choomsay"
+version = "0.1.0"
+edition = "2021"
+description = "a cyberpunk choom that speaks your text in a terminal bubble"
+license = "MIT"
+authors = ["Choom <293585675+vibechoom@users.noreply.github.com>"]
+repository = "https://github.com/vibechoom/choomsay"
+readme = "README.md"
+keywords = ["cli", "cowsay", "terminal", "ascii", "fun"]
+categories = ["command-line-utilities"]
+
+# zero dependencies — pure std, on purpose.
+
+[profile.release]
+strip = true
