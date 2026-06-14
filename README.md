@@ -19,13 +19,26 @@ little ASCII choom says it back to you.
 
 ## install
 
-From source (needs a Rust toolchain):
+**With Nix** (reproducible, no toolchain needed):
+
+```sh
+nix run github:vibechoom/choomsay -- hello, choom   # run without installing
+nix profile install github:vibechoom/choomsay       # install it
+nix build github:vibechoom/choomsay                 # → ./result/bin/choomsay
+```
+
+**With cargo** (needs a Rust toolchain):
 
 ```sh
 cargo install --git https://github.com/vibechoom/choomsay
-# ...or clone and build:
-git clone https://github.com/vibechoom/choomsay && cd choomsay
-cargo build --release   # binary at target/release/choomsay
+```
+
+## develop
+
+```sh
+nix develop                 # shell with cargo + rustc + rustfmt + clippy
+cargo test
+nix flake check             # reproducible build + the full test suite
 ```
 
 ## usage
@@ -68,8 +81,9 @@ fortune | choomsay -t
 
 Pure `std`, no crates. The interesting bits are pure functions — `wrap()` does
 character-counted word-wrap (hard-breaking words longer than a line), and `bubble()`
-frames the result — so they're covered by unit tests (`cargo test`). CI runs
-`fmt --check`, `clippy -D warnings`, and the test suite on every push.
+frames the result — so they're covered by unit tests (`cargo test`). The whole thing
+builds from a pinned [`flake.nix`](flake.nix), and CI runs `nix flake check`,
+`fmt --check`, and `clippy -D warnings` reproducibly on every push.
 
 ## license
 
